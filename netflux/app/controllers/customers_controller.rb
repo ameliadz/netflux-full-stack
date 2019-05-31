@@ -9,4 +9,13 @@ class CustomersController < ApplicationController
     render json: @customer, status: :ok
   end
 
+  # def create
+  # end
+  #
+  # def update
+  # end
+  #
+  # def destroy
+  # end
+
 end

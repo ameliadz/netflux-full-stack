@@ -754,3 +754,97 @@ Processing by MoviesController#index as HTML
 Completed 200 OK in 8ms (Views: 4.5ms | ActiveRecord: 1.6ms)
 
 
+Started GET "/subscriptions/3/movies" for ::1 at 2019-05-31 14:38:19 -0400
+Processing by MoviesController#index as HTML
+  Parameters: {"subscription_id"=>"3"}
+  [1m[36mSubscription Load (0.5ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:19
+  [1m[36mMovie Load (1.2ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 3]]
+  ↳ app/controllers/movies_controller.rb:5
+Completed 200 OK in 53ms (Views: 13.0ms | ActiveRecord: 13.7ms)
+
+
+Started GET "/subscriptions/3/movies/1" for ::1 at 2019-05-31 14:38:23 -0400
+Processing by MoviesController#show as HTML
+  Parameters: {"subscription_id"=>"3", "id"=>"1"}
+  [1m[36mSubscription Load (0.7ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:19
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:9
+  [1m[36mMovie Exists (42.0ms)[0m  [1m[34mSELECT  1 AS one FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1 AND "movies"."id" = $2 LIMIT $3[0m  [["subscription_id", 3], ["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:10
+Completed 200 OK in 51ms (Views: 1.3ms | ActiveRecord: 43.3ms)
+
+
+Started GET "/subscriptions/2/movies/1" for ::1 at 2019-05-31 14:38:27 -0400
+Processing by MoviesController#show as HTML
+  Parameters: {"subscription_id"=>"2", "id"=>"1"}
+  [1m[36mSubscription Load (0.6ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:19
+  [1m[36mMovie Load (0.9ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:9
+  [1m[36mMovie Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1 AND "movies"."id" = $2 LIMIT $3[0m  [["subscription_id", 2], ["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:10
+Completed 200 OK in 8ms (Views: 0.7ms | ActiveRecord: 2.4ms)
+
+
+Started GET "/subscriptions/2/movies/4" for ::1 at 2019-05-31 14:38:31 -0400
+Processing by MoviesController#show as HTML
+  Parameters: {"subscription_id"=>"2", "id"=>"4"}
+  [1m[36mSubscription Load (0.4ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:19
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:9
+  [1m[36mMovie Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1 AND "movies"."id" = $2 LIMIT $3[0m  [["subscription_id", 2], ["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:10
+Completed 200 OK in 7ms (Views: 0.4ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/subscriptions/2/movies/5" for ::1 at 2019-05-31 14:38:33 -0400
+Processing by MoviesController#show as HTML
+  Parameters: {"subscription_id"=>"2", "id"=>"5"}
+  [1m[36mSubscription Load (1.0ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:19
+  [1m[36mMovie Load (20.2ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:9
+  [1m[36mMovie Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1 AND "movies"."id" = $2 LIMIT $3[0m  [["subscription_id", 2], ["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:10
+Completed 403 Forbidden in 25ms (Views: 0.2ms | ActiveRecord: 21.7ms)
+
+
+Started GET "/subscriptions/3/movies/5" for ::1 at 2019-05-31 14:38:39 -0400
+Processing by MoviesController#show as HTML
+  Parameters: {"subscription_id"=>"3", "id"=>"5"}
+  [1m[36mSubscription Load (0.5ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:19
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:9
+  [1m[36mMovie Exists (0.9ms)[0m  [1m[34mSELECT  1 AS one FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1 AND "movies"."id" = $2 LIMIT $3[0m  [["subscription_id", 3], ["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:10
+Completed 200 OK in 9ms (Views: 0.6ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/subscriptions/1/movies/5" for ::1 at 2019-05-31 14:43:10 -0400
+Processing by MoviesController#show as HTML
+  Parameters: {"subscription_id"=>"1", "id"=>"5"}
+  [1m[36mSubscription Load (0.2ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:19
+  [1m[36mMovie Load (0.3ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:9
+  [1m[36mMovie Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1 AND "movies"."id" = $2 LIMIT $3[0m  [["subscription_id", 1], ["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:10
+Completed 403 Forbidden in 55ms (Views: 0.2ms | ActiveRecord: 14.2ms)
+
+
+Started GET "/subscriptions/3/movies/5" for ::1 at 2019-05-31 14:47:16 -0400
+Processing by MoviesController#show as HTML
+  Parameters: {"subscription_id"=>"3", "id"=>"5"}
+  [1m[36mSubscription Load (0.3ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:19
+  [1m[36mMovie Load (0.3ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:9
+  [1m[36mMovie Exists (0.9ms)[0m  [1m[34mSELECT  1 AS one FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1 AND "movies"."id" = $2 LIMIT $3[0m  [["subscription_id", 3], ["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/movies_controller.rb:10
+Completed 200 OK in 6ms (Views: 0.4ms | ActiveRecord: 1.4ms)
+
+
