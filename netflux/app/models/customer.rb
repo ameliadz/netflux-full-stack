@@ -1,3 +1,3 @@
 class Customer < ApplicationRecord
-  belongs_to :subcription
+  belongs_to :subscription
 end
