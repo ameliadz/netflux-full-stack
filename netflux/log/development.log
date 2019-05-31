@@ -122,3 +122,415 @@ FOREIGN KEY ("subscription_id")
   [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
   [1m[35m (0.3ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
   [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1926339662768776080)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to AddSubscriptionToCustomers (20190531154845)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (37.7ms)[0m  [1m[35mALTER TABLE "customers" ADD "subscription_id" bigint[0m
+  ↳ db/migrate/20190531154845_add_subscription_to_customers.rb:3
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE  INDEX  "index_customers_on_subscription_id" ON "customers"  ("subscription_id")[0m
+  ↳ db/migrate/20190531154845_add_subscription_to_customers.rb:3
+  [1m[35m (4.6ms)[0m  [1m[35mALTER TABLE "customers" ADD CONSTRAINT "fk_rails_ae7fc79874"
+FOREIGN KEY ("subscription_id")
+  REFERENCES "subscriptions" ("id")
+[0m
+  ↳ db/migrate/20190531154845_add_subscription_to_customers.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (1.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20190531154845"]]
+  ↳ bin/rails:9
+  [1m[35m (3.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(1926339662768776080)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[36mSubscription Load (1.0ms)[0m  [1m[34mSELECT "subscriptions".* FROM "subscriptions"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Create (43.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("tier", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["tier", "free"], ["created_at", "2019-05-31 15:55:30.014858"], ["updated_at", "2019-05-31 15:55:30.014858"]]
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Load (0.3ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mCustomer Create (28.6ms)[0m  [1m[32mINSERT INTO "customers" ("name", "created_at", "updated_at", "subscription_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Fred"], ["created_at", "2019-05-31 15:58:30.927220"], ["updated_at", "2019-05-31 15:58:30.927220"], ["subscription_id", 4]]
+  [1m[35m (0.6ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (44.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "genre", "director", "plot", "image", "year", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Thor"], ["genre", "Action"], ["director", "jim bob"], ["plot", "thunder god does thunder god things"], ["image", "no image"], ["year", 2009], ["created_at", "2019-05-31 16:00:59.967601"], ["updated_at", "2019-05-31 16:00:59.967601"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mXref Create (1.2ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 1], ["subscription_id", 4], ["created_at", "2019-05-31 16:03:56.032264"], ["updated_at", "2019-05-31 16:03:56.032264"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSubscription Load (0.4ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mCustomer Load (0.3ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mMovie Load (41.7ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Create (1.0ms)[0m  [1m[32mINSERT INTO "subscriptions" ("tier", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["tier", "free"], ["created_at", "2019-05-31 16:12:06.099677"], ["updated_at", "2019-05-31 16:12:06.099677"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Load (0.4ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mCustomer Create (0.8ms)[0m  [1m[32mINSERT INTO "customers" ("name", "created_at", "updated_at", "subscription_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Fred"], ["created_at", "2019-05-31 16:12:25.531422"], ["updated_at", "2019-05-31 16:12:25.531422"], ["subscription_id", 5]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.5ms)[0m  [1m[32mINSERT INTO "movies" ("title", "genre", "director", "plot", "image", "year", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Thor"], ["genre", "Action"], ["director", "jim bob"], ["plot", "thunder god does thunder god things"], ["image", "no image"], ["year", 2009], ["created_at", "2019-05-31 16:13:09.984526"], ["updated_at", "2019-05-31 16:13:09.984526"]]
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mXref Create (0.9ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 2], ["subscription_id", 5], ["created_at", "2019-05-31 16:13:53.735822"], ["updated_at", "2019-05-31 16:13:53.735822"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mXref Load (0.4ms)[0m  [1m[34mSELECT "xrefs".* FROM "xrefs"[0m
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" ORDER BY "movies"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mSubscription Load (0.4ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."tier" = $1 LIMIT $2[0m  [["tier", "free"], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.8ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 5]]
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "genre", "director", "plot", "image", "year", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Girls Trip"], ["genre", "Comedy"], ["director", "Malcolm D. Lee"], ["plot", "When four lifelong friends travel to New Orleans for the annual Essence Festival, sisterhoods are rekindled, wild sides are rediscovered, and there's enough dancing, drinking, brawling, and romancing to make the Big Easy blush."], ["image", "https://m.media-amazon.com/images/M/MV5BMjMwNTEzODUwMV5BMl5BanBnXkFtZTgwNjE5NjA5MjI@._V1_SX300.jpg"], ["year", 2017], ["created_at", "2019-05-31 16:24:00.343191"], ["updated_at", "2019-05-31 16:24:00.343191"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mMovie Load (0.2ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mXref Create (0.6ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 3], ["subscription_id", 5], ["created_at", "2019-05-31 16:24:34.493843"], ["updated_at", "2019-05-31 16:24:34.493843"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSubscription Load (0.5ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."tier" = $1 LIMIT $2[0m  [["tier", "free"], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.6ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 5]]
+  [1m[36mXref Load (0.6ms)[0m  [1m[34mSELECT "xrefs".* FROM "xrefs"[0m
+  [1m[36mSubscription Load (0.3ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."tier" = $1 LIMIT $2[0m  [["tier", "free"], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 5]]
+  [1m[36mSubscription Load (0.4ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "genre", "director", "plot", "image", "year", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "blah"], ["genre", "idc"], ["director", "blah blah"], ["plot", "blah blah blah"], ["image", "whatever"], ["year", 2019], ["created_at", "2019-05-31 17:49:22.932310"], ["updated_at", "2019-05-31 17:49:22.932310"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Create (0.4ms)[0m  [1m[32mINSERT INTO "subscriptions" ("tier", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["tier", "gold"], ["created_at", "2019-05-31 17:49:46.736429"], ["updated_at", "2019-05-31 17:49:46.736429"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSubscription Load (0.3ms)[0m  [1m[34mSELECT "subscriptions".* FROM "subscriptions"[0m
+  [1m[36mSubscription Load (0.2ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  [1m[36mSubscription Load (0.4ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."tier" = $1 LIMIT $2[0m  [["tier", "gold"], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 6]]
+  [1m[36mSubscription Load (0.4ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."tier" = $1 LIMIT $2[0m  [["tier", "gold"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mXref Create (0.7ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 4], ["subscription_id", 6], ["created_at", "2019-05-31 17:50:19.639900"], ["updated_at", "2019-05-31 17:50:19.639900"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 6]]
+  [1m[36mSubscription Load (0.3ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."tier" = $1 LIMIT $2[0m  [["tier", "gold"], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 6]]
+  [1m[36mXref Load (0.4ms)[0m  [1m[34mSELECT "xrefs".* FROM "xrefs"[0m
+  [1m[36mXref Load (0.4ms)[0m  [1m[34mSELECT  "xrefs".* FROM "xrefs" WHERE "xrefs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mXref Load (0.3ms)[0m  [1m[34mSELECT  "xrefs".* FROM "xrefs" WHERE "xrefs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT  "movies".* FROM "movies" WHERE "movies"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mCustomer Load (0.5ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  [1m[36mMovie Load (0.3ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 5]]
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Create (0.5ms)[0m  [1m[32mINSERT INTO "subscriptions" ("tier", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["tier", "silver"], ["created_at", "2019-05-31 17:54:45.585042"], ["updated_at", "2019-05-31 17:54:45.585042"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSubscription Load (0.2ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."tier" = $1 LIMIT $2[0m  [["tier", "silver"], ["LIMIT", 1]]
+  [1m[36mSubscription Load (0.2ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."tier" = $1 LIMIT $2[0m  [["tier", "silver"], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.3ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mXref Create (0.5ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 2], ["subscription_id", 7], ["created_at", "2019-05-31 17:55:15.622946"], ["updated_at", "2019-05-31 17:55:15.622946"]]
+  [1m[36mXref Create (1.3ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 3], ["subscription_id", 7], ["created_at", "2019-05-31 17:55:15.625386"], ["updated_at", "2019-05-31 17:55:15.625386"]]
+  [1m[36mXref Create (0.8ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 4], ["subscription_id", 7], ["created_at", "2019-05-31 17:55:15.628973"], ["updated_at", "2019-05-31 17:55:15.628973"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mMovie Load (0.3ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 7]]
+  [1m[36mSubscription Load (0.3ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."tier" = $1 LIMIT $2[0m  [["tier", "silver"], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.2ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 7]]
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.6ms)[0m  [1m[32mINSERT INTO "movies" ("title", "genre", "director", "plot", "image", "year", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "aaldksjaf"], ["genre", "action"], ["director", "adfsd"], ["plot", "aslfajsgir"], ["image", "no"], ["year", 3000], ["created_at", "2019-05-31 17:56:16.675322"], ["updated_at", "2019-05-31 17:56:16.675322"]]
+  [1m[35m (0.5ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Create (0.5ms)[0m  [1m[32mINSERT INTO "subscriptions" ("tier", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["tier", "ultimate"], ["created_at", "2019-05-31 17:56:27.138813"], ["updated_at", "2019-05-31 17:56:27.138813"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSubscription Load (0.2ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."tier" = $1 LIMIT $2[0m  [["tier", "ultimate"], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.2ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 8]]
+  [1m[36mSubscription Load (0.6ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."tier" = $1 LIMIT $2[0m  [["tier", "ultimate"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mXref Create (0.5ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 2], ["subscription_id", 8], ["created_at", "2019-05-31 17:56:46.909181"], ["updated_at", "2019-05-31 17:56:46.909181"]]
+  [1m[36mXref Create (0.5ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 3], ["subscription_id", 8], ["created_at", "2019-05-31 17:56:46.912209"], ["updated_at", "2019-05-31 17:56:46.912209"]]
+  [1m[36mXref Create (0.5ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 5], ["subscription_id", 8], ["created_at", "2019-05-31 17:56:46.914834"], ["updated_at", "2019-05-31 17:56:46.914834"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mMovie Load (0.3ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 8]]
+  [1m[36mSubscription Load (0.5ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."tier" = $1 LIMIT $2[0m  [["tier", "ultimate"], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.3ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 8]]
+  [1m[35m (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (46.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  ↳ bin/rails:9
+  [1m[35m (376.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS "netflux_development"[0m
+  ↳ bin/rails:9
+  [1m[35m (260.3ms)[0m  [1m[35mDROP DATABASE IF EXISTS "netflux_test"[0m
+  ↳ bin/rails:9
+  [1m[35m (562.9ms)[0m  [1m[35mCREATE DATABASE "netflux_development" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (444.8ms)[0m  [1m[35mCREATE DATABASE "netflux_test" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35mSQL (38.4ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  ↳ db/schema.rb:16
+  [1m[35m (2.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "customers" CASCADE[0m
+  ↳ db/schema.rb:18
+  [1m[35m (14.5ms)[0m  [1m[35mCREATE TABLE "customers" ("id" bigserial primary key, "name" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "subscription_id" bigint)[0m
+  ↳ db/schema.rb:18
+  [1m[35m (7.0ms)[0m  [1m[35mCREATE  INDEX  "index_customers_on_subscription_id" ON "customers"  ("subscription_id")[0m
+  ↳ db/schema.rb:18
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "movies" CASCADE[0m
+  ↳ db/schema.rb:26
+  [1m[35m (13.5ms)[0m  [1m[35mCREATE TABLE "movies" ("id" bigserial primary key, "title" character varying, "genre" character varying, "director" character varying, "plot" character varying, "image" character varying, "year" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:26
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "subscriptions" CASCADE[0m
+  ↳ db/schema.rb:37
+  [1m[35m (12.6ms)[0m  [1m[35mCREATE TABLE "subscriptions" ("id" bigserial primary key, "tier" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:37
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "xrefs" CASCADE[0m
+  ↳ db/schema.rb:43
+  [1m[35m (7.5ms)[0m  [1m[35mCREATE TABLE "xrefs" ("id" bigserial primary key, "movie_id" bigint, "subscription_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:43
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE  INDEX  "index_xrefs_on_movie_id" ON "xrefs"  ("movie_id")[0m
+  ↳ db/schema.rb:43
+  [1m[35m (6.7ms)[0m  [1m[35mCREATE  INDEX  "index_xrefs_on_subscription_id" ON "xrefs"  ("subscription_id")[0m
+  ↳ db/schema.rb:43
+  [1m[35m (4.7ms)[0m  [1m[35mALTER TABLE "customers" ADD CONSTRAINT "fk_rails_ae7fc79874"
+FOREIGN KEY ("subscription_id")
+  REFERENCES "subscriptions" ("id")
+[0m
+  ↳ db/schema.rb:52
+  [1m[35m (3.6ms)[0m  [1m[35mALTER TABLE "xrefs" ADD CONSTRAINT "fk_rails_6b2b1f9786"
+FOREIGN KEY ("movie_id")
+  REFERENCES "movies" ("id")
+[0m
+  ↳ db/schema.rb:53
+  [1m[35m (3.2ms)[0m  [1m[35mALTER TABLE "xrefs" ADD CONSTRAINT "fk_rails_f834c295de"
+FOREIGN KEY ("subscription_id")
+  REFERENCES "subscriptions" ("id")
+[0m
+  ↳ db/schema.rb:54
+  [1m[35m (9.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  ↳ db/schema.rb:13
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ db/schema.rb:13
+  [1m[35m (2.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20190531154845)[0m
+  ↳ db/schema.rb:13
+  [1m[35m (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20190531151911),
+(20190531152145),
+(20190531151746),
+(20190531151902);
+
+[0m
+  ↳ db/schema.rb:13
+  [1m[35m (8.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Load (1.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ db/schema.rb:13
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2019-05-31 18:00:16.663899"], ["updated_at", "2019-05-31 18:00:16.663899"]]
+  ↳ db/schema.rb:13
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[35mSQL (0.5ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  ↳ db/schema.rb:16
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "customers" CASCADE[0m
+  ↳ db/schema.rb:18
+  [1m[35m (45.9ms)[0m  [1m[35mCREATE TABLE "customers" ("id" bigserial primary key, "name" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "subscription_id" bigint)[0m
+  ↳ db/schema.rb:18
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE  INDEX  "index_customers_on_subscription_id" ON "customers"  ("subscription_id")[0m
+  ↳ db/schema.rb:18
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "movies" CASCADE[0m
+  ↳ db/schema.rb:26
+  [1m[35m (11.4ms)[0m  [1m[35mCREATE TABLE "movies" ("id" bigserial primary key, "title" character varying, "genre" character varying, "director" character varying, "plot" character varying, "image" character varying, "year" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:26
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "subscriptions" CASCADE[0m
+  ↳ db/schema.rb:37
+  [1m[35m (13.0ms)[0m  [1m[35mCREATE TABLE "subscriptions" ("id" bigserial primary key, "tier" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:37
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "xrefs" CASCADE[0m
+  ↳ db/schema.rb:43
+  [1m[35m (9.0ms)[0m  [1m[35mCREATE TABLE "xrefs" ("id" bigserial primary key, "movie_id" bigint, "subscription_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:43
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE  INDEX  "index_xrefs_on_movie_id" ON "xrefs"  ("movie_id")[0m
+  ↳ db/schema.rb:43
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE  INDEX  "index_xrefs_on_subscription_id" ON "xrefs"  ("subscription_id")[0m
+  ↳ db/schema.rb:43
+  [1m[35m (4.6ms)[0m  [1m[35mALTER TABLE "customers" ADD CONSTRAINT "fk_rails_ae7fc79874"
+FOREIGN KEY ("subscription_id")
+  REFERENCES "subscriptions" ("id")
+[0m
+  ↳ db/schema.rb:52
+  [1m[35m (3.9ms)[0m  [1m[35mALTER TABLE "xrefs" ADD CONSTRAINT "fk_rails_6b2b1f9786"
+FOREIGN KEY ("movie_id")
+  REFERENCES "movies" ("id")
+[0m
+  ↳ db/schema.rb:53
+  [1m[35m (3.4ms)[0m  [1m[35mALTER TABLE "xrefs" ADD CONSTRAINT "fk_rails_f834c295de"
+FOREIGN KEY ("subscription_id")
+  REFERENCES "subscriptions" ("id")
+[0m
+  ↳ db/schema.rb:54
+  [1m[35m (15.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  ↳ db/schema.rb:13
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ db/schema.rb:13
+  [1m[35m (2.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20190531154845)[0m
+  ↳ db/schema.rb:13
+  [1m[35m (3.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20190531151911),
+(20190531152145),
+(20190531151746),
+(20190531151902);
+
+[0m
+  ↳ db/schema.rb:13
+  [1m[35m (13.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ db/schema.rb:13
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2019-05-31 18:00:16.857511"], ["updated_at", "2019-05-31 18:00:16.857511"]]
+  ↳ db/schema.rb:13
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Update (0.4ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2019-05-31 18:00:16.863749"], ["key", "environment"]]
+  ↳ bin/rails:9
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:1
+  [1m[36mMovie Create (0.9ms)[0m  [1m[32mINSERT INTO "movies" ("title", "genre", "director", "plot", "image", "year", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Girls Trip"], ["genre", "Comedy"], ["director", "Malcolm D. Lee"], ["plot", "When four lifelong friends travel to New Orleans for the annual Essence Festival, sisterhoods are rekindled, wild sides are rediscovered, and there's enough dancing, drinking, brawling, and romancing to make the Big Easy blush."], ["image", "https://m.media-amazon.com/images/M/MV5BMjMwNTEzODUwMV5BMl5BanBnXkFtZTgwNjE5NjA5MjI@._V1_SX300.jpg"], ["year", 2017], ["created_at", "2019-05-31 18:00:16.920238"], ["updated_at", "2019-05-31 18:00:16.920238"]]
+  ↳ db/seeds.rb:1
+  [1m[35m (19.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:1
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:10
+  [1m[36mMovie Create (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "genre", "director", "plot", "image", "year", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "The Lord of the Rings: The Fellowship of the Ring"], ["genre", "Adventure"], ["director", "Peter Jackson"], ["plot", "A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron."], ["image", "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_SX300.jpg"], ["year", 2001], ["created_at", "2019-05-31 18:00:16.943302"], ["updated_at", "2019-05-31 18:00:16.943302"]]
+  ↳ db/seeds.rb:10
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:10
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:19
+  [1m[36mMovie Create (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "genre", "director", "plot", "image", "year", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "The Matrix"], ["genre", "Action"], ["director", "Lana Wachowski"], ["plot", "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers."], ["image", "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg"], ["year", 1999], ["created_at", "2019-05-31 18:00:16.948197"], ["updated_at", "2019-05-31 18:00:16.948197"]]
+  ↳ db/seeds.rb:19
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:19
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:28
+  [1m[36mMovie Create (0.5ms)[0m  [1m[32mINSERT INTO "movies" ("title", "genre", "director", "plot", "image", "year", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Man of Steel"], ["genre", "Action"], ["director", "Zack Snyder"], ["plot", "Clark Kent is an alien who as a child was evacuated from his dying world and came to Earth, living as a normal human. But when survivors of his alien home invade Earth, he must reveal himself to the world."], ["image", "https://m.media-amazon.com/images/M/MV5BMTk5ODk1NDkxMF5BMl5BanBnXkFtZTcwNTA5OTY0OQ@@._V1_SX300.jpg"], ["year", 2013], ["created_at", "2019-05-31 18:00:16.953496"], ["updated_at", "2019-05-31 18:00:16.953496"]]
+  ↳ db/seeds.rb:28
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:28
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:37
+  [1m[36mMovie Create (0.4ms)[0m  [1m[32mINSERT INTO "movies" ("title", "genre", "director", "plot", "image", "year", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Call Me By Your Name"], ["genre", "Drama"], ["director", "Luca Guadagnino"], ["plot", "In 1980s Italy, a romance blossoms between a seventeen year-old student and the older man hired as his father's research assistant."], ["image", "https://m.media-amazon.com/images/M/MV5BNDk3NTEwNjc0MV5BMl5BanBnXkFtZTgwNzYxNTMwMzI@._V1_SX300.jpg"], ["year", 2017], ["created_at", "2019-05-31 18:00:16.958098"], ["updated_at", "2019-05-31 18:00:16.958098"]]
+  ↳ db/seeds.rb:37
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:37
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:46
+  [1m[36mSubscription Create (0.7ms)[0m  [1m[32mINSERT INTO "subscriptions" ("tier", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["tier", "free"], ["created_at", "2019-05-31 18:00:16.985127"], ["updated_at", "2019-05-31 18:00:16.985127"]]
+  ↳ db/seeds.rb:46
+  [1m[35m (40.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:46
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:47
+  [1m[36mSubscription Create (0.5ms)[0m  [1m[32mINSERT INTO "subscriptions" ("tier", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["tier", "silver"], ["created_at", "2019-05-31 18:00:17.028845"], ["updated_at", "2019-05-31 18:00:17.028845"]]
+  ↳ db/seeds.rb:47
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:47
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:48
+  [1m[36mSubscription Create (0.5ms)[0m  [1m[32mINSERT INTO "subscriptions" ("tier", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["tier", "gold"], ["created_at", "2019-05-31 18:00:17.034233"], ["updated_at", "2019-05-31 18:00:17.034233"]]
+  ↳ db/seeds.rb:48
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:48
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:50
+  [1m[36mCustomer Create (1.3ms)[0m  [1m[32mINSERT INTO "customers" ("name", "created_at", "updated_at", "subscription_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Liberty Van Zandt"], ["created_at", "2019-05-31 18:00:17.082175"], ["updated_at", "2019-05-31 18:00:17.082175"], ["subscription_id", 1]]
+  ↳ db/seeds.rb:50
+  [1m[35m (41.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:50
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:51
+  [1m[36mCustomer Create (0.6ms)[0m  [1m[32mINSERT INTO "customers" ("name", "created_at", "updated_at", "subscription_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Norrin Radd"], ["created_at", "2019-05-31 18:00:17.127555"], ["updated_at", "2019-05-31 18:00:17.127555"], ["subscription_id", 2]]
+  ↳ db/seeds.rb:51
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:51
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:52
+  [1m[36mCustomer Create (0.5ms)[0m  [1m[32mINSERT INTO "customers" ("name", "created_at", "updated_at", "subscription_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Michael Phelps"], ["created_at", "2019-05-31 18:00:17.132867"], ["updated_at", "2019-05-31 18:00:17.132867"], ["subscription_id", 3]]
+  ↳ db/seeds.rb:52
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:52
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:54
+  [1m[36mXref Create (1.7ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 3], ["subscription_id", 1], ["created_at", "2019-05-31 18:00:17.203481"], ["updated_at", "2019-05-31 18:00:17.203481"]]
+  ↳ db/seeds.rb:54
+  [1m[35m (41.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:54
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 1]]
+  ↳ db/seeds.rb:55
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:55
+  [1m[36mXref Create (0.5ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 3], ["subscription_id", 2], ["created_at", "2019-05-31 18:00:17.275698"], ["updated_at", "2019-05-31 18:00:17.275698"]]
+  ↳ db/seeds.rb:55
+  [1m[36mXref Create (0.5ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 4], ["subscription_id", 2], ["created_at", "2019-05-31 18:00:17.278748"], ["updated_at", "2019-05-31 18:00:17.278748"]]
+  ↳ db/seeds.rb:55
+  [1m[36mXref Create (0.5ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 1], ["subscription_id", 2], ["created_at", "2019-05-31 18:00:17.281270"], ["updated_at", "2019-05-31 18:00:17.281270"]]
+  ↳ db/seeds.rb:55
+  [1m[35m (41.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:55
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  ↳ db/seeds.rb:56
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:56
+  [1m[36mXref Create (0.8ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 1], ["subscription_id", 3], ["created_at", "2019-05-31 18:00:17.332418"], ["updated_at", "2019-05-31 18:00:17.332418"]]
+  ↳ db/seeds.rb:56
+  [1m[36mXref Create (0.7ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 2], ["subscription_id", 3], ["created_at", "2019-05-31 18:00:17.337025"], ["updated_at", "2019-05-31 18:00:17.337025"]]
+  ↳ db/seeds.rb:56
+  [1m[36mXref Create (0.4ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 3], ["subscription_id", 3], ["created_at", "2019-05-31 18:00:17.340655"], ["updated_at", "2019-05-31 18:00:17.340655"]]
+  ↳ db/seeds.rb:56
+  [1m[36mXref Create (0.4ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 4], ["subscription_id", 3], ["created_at", "2019-05-31 18:00:17.344280"], ["updated_at", "2019-05-31 18:00:17.344280"]]
+  ↳ db/seeds.rb:56
+  [1m[36mXref Create (0.4ms)[0m  [1m[32mINSERT INTO "xrefs" ("movie_id", "subscription_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["movie_id", 5], ["subscription_id", 3], ["created_at", "2019-05-31 18:00:17.346716"], ["updated_at", "2019-05-31 18:00:17.346716"]]
+  ↳ db/seeds.rb:56
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:56
+  [1m[36mMovie Load (1.4ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  [1m[36mSubscription Load (0.4ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  [1m[36mSubscription Load (0.3ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."tier" = $1 LIMIT $2[0m  [["tier", "silver"], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.8ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 2]]
+  [1m[36mSubscription Load (0.4ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."tier" = $1 LIMIT $2[0m  [["tier", "free"], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 1]]
+  [1m[36mSubscription Load (0.4ms)[0m  [1m[34mSELECT  "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."tier" = $1 LIMIT $2[0m  [["tier", "gold"], ["LIMIT", 1]]
+  [1m[36mMovie Load (0.5ms)[0m  [1m[34mSELECT "movies".* FROM "movies" INNER JOIN "xrefs" ON "movies"."id" = "xrefs"."movie_id" WHERE "xrefs"."subscription_id" = $1[0m  [["subscription_id", 3]]

@@ -3,7 +3,7 @@ girls_trip = Movie.create({
     year: 2017,
     genre: 'Comedy',
     director: 'Malcolm D. Lee',
-    plot: 'When four lifelong friends travel to New Orleans for the annual Essence Festival, sisterhoods are rekindled, wild sides are rediscovered, and there's enough dancing, drinking, brawling, and romancing to make the Big Easy blush.',
+    plot: "When four lifelong friends travel to New Orleans for the annual Essence Festival, sisterhoods are rekindled, wild sides are rediscovered, and there's enough dancing, drinking, brawling, and romancing to make the Big Easy blush.",
     image: 'https://m.media-amazon.com/images/M/MV5BMjMwNTEzODUwMV5BMl5BanBnXkFtZTgwNjE5NjA5MjI@._V1_SX300.jpg'
   })
 
@@ -39,10 +39,18 @@ lotr = Movie.create({
     year: 2017,
     genre: 'Drama',
     director: 'Luca Guadagnino',
-    plot: 'In 1980s Italy, a romance blossoms between a seventeen year-old student and the older man hired as his father's research assistant.',
+    plot: "In 1980s Italy, a romance blossoms between a seventeen year-old student and the older man hired as his father's research assistant.",
     image:'https://m.media-amazon.com/images/M/MV5BNDk3NTEwNjc0MV5BMl5BanBnXkFtZTgwNzYxNTMwMzI@._V1_SX300.jpg'
   })
 
-free = Subscription.create({tier: "free"})
-silver = Subscription.create({tier: "silver"})
-gold = Subscription.create({tier: "gold"})
+free = Subscription.create(tier: "free")
+silver = Subscription.create(tier: "silver")
+gold = Subscription.create(tier: "gold")
+
+test_free = Customer.create(name: "Liberty Van Zandt", subscription: free)
+test_silver = Customer.create(name: "Norrin Radd", subscription: silver)
+test_gold = Customer.create(name: "Michael Phelps", subscription: gold)
+
+free.movies.push(matrix)
+silver.movies.push(free.movies, man_of_steel, girls_trip)
+gold.movies.push(Movie.all)
