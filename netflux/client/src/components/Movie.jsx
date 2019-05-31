@@ -7,6 +7,7 @@ export default function Movie(props) {
       <h2>{movie.title}</h2>
       <p>Directed by: {movie.director}</p>
       <p>{movie.year}</p>
+      <p>{movie.genre}</p>
       <p>{movie.plot}</p>
       <img src={movie.image} alt={`${movie.title} poster`}/>
     </div>
